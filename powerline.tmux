@@ -9,7 +9,7 @@ runpowerline() {
 }
 
 nopowerline() {
-     tmux set-option set -g status "on"
+    tmux set-option -g status "on"
     tmux set-option -g status-interval 2
     tmux set-option -g status-left-length 20
     tmux set-option -g status-right-length "150"
@@ -19,7 +19,7 @@ nopowerline() {
      tmux set-option -g status-justify left
 
      tmux set-option -g status-left "#{?client_prefix,#[fg=colour254]#[bg=colour31]#[bold]#[noitalics]#[nounderscore],#[fg=colour16]#[bg=colour254]#[bold]#[noitalics]#[nounderscore]} #S #{?client_prefix,#[fg=colour31],#[fg=colour254]}#[bg=colour233]#[nobold] #(env $POWERLINE_COMMAND $POWERLINE_COMMAND_ARGS tmux left)"
-     tmux set-option -g status-right "#[fg=colour233,bg=default,nobold,noitalics,nounderscore] #[fg=colour247,bg=colour233,nobold,noitalics,nounderscore] #(uptime | awk '{print $3}')d#[fg=colour241,bg=colour233,nobold,noitalics,nounderscore] #[fg=colour2,bg=colour233,nobold,noitalics,nounderscore]#(uptime | rev | cut -d":" -f1 | rev | sed s/,//g)#[fg=colour236,bg=colour233,nobold,noitalics,nounderscore] #[fg=colour247,bg=colour236,nobold,noitalics,nounderscore] #(date +"%Y-%m-%d")#[fg=colour241,bg=colour236,nobold,noitalics,nounderscore] #[fg=colour252,bg=colour236,bold,noitalics,nounderscore] "%H:%M:%S"#[fg=colour252,bg=colour236,nobold,noitalics,nounderscore] #[fg=colour16,bg=colour252,bold,noitalics,nounderscore]  #(hostname)"
+     tmux set-option -g status-right "#[fg=colour233,bg=default,nobold,noitalics,nounderscore] #[fg=colour247,bg=colour233,nobold,noitalics,nounderscore] #(uptime | cut -d \" \" -f4)d#[fg=colour241,bg=colour233,nobold,noitalics,nounderscore] #[fg=colour2,bg=colour233,nobold,noitalics,nounderscore]#(uptime | rev | cut -d\":\" -f1 | rev | sed s/,//g)#[fg=colour236,bg=colour233,nobold,noitalics,nounderscore] #[fg=colour247,bg=colour236,nobold,noitalics,nounderscore] #(date +\"%Y-%m-%d\")#[fg=colour241,bg=colour236,nobold,noitalics,nounderscore] #[fg=colour252,bg=colour236,bold,noitalics,nounderscore] \"%H:%M:%S\"#[fg=colour252,bg=colour236,nobold,noitalics,nounderscore] #[fg=colour16,bg=colour252,bold,noitalics,nounderscore]  #(hostname)"
      tmux set-option -g window-status-current-format "#[fg=colour233,bg=colour31,nobold,noitalics,nounderscore] #[fg=colour117,bg=colour31,nobold,noitalics,nounderscore]#I  #[fg=colour231,bg=colour31,bold,noitalics,nounderscore]#W #[fg=colour31,bg=colour233,nobold,noitalics,nounderscore] "
      tmux set-option -g window-status-fg colour249
      tmux set-option -g window-status-format "#[fg=colour244,bg=colour233,nobold,noitalics,nounderscore]  #I #[fg=colour240,bg=colour233,nobold,noitalics,nounderscore] #[default]#W   "
@@ -35,7 +35,8 @@ nopowerline() {
 main() {
 	# if we have powerline then use that, otherwise use fixed status.
 	if  [ -x "$(command -v powerline-daemon)" ]; then
-		runpowerline
+		# runpowerline
+		nopowerline
 	else
 		nopowerline
 	fi
